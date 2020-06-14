@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="dashboard.css">
+  <script src="main.js"></script>
+  <script src="unitTests.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2/dist/Chart.min.js"></script>
+</head>
+
+<body>
+
+  <div class="tab">
+    <h1 class="tablinks" onclick="openActivateTab(event, 'Activate');
+      document.querySelector('#percentProductive').innerHTML = percentProductive()">Activate 
+    </h1>
+    <button class="tablinks" onclick="openActivateTab(event, 'Calendar')">Calendar</button>
+    <button class="tablinks" onclick="openActivateTab(event, 'Visualize')">Visualize</button>
+    <button class="tablinks" onclick="openActivateTab(event, 'Insights')">Insights</button>
+    <button class="tablinks" onclick="openActivateTab(event, 'Settings')">Settings</button>
+    <button class="tablinks" onclick="openActivateTab(event, 'Tests')">UnitTests</button>
+  </div>
+
+  <div id="Calendar" class="tabcontent">
+    <h3>Calendar</h3>
+    <fieldset class="cal_fs">
+      <legend>Please enter time and date of event</legend>
+      <div>
+        <label for="day">Day:</label>
+        <select id="day">
+          <script type="text/javascript">
+            for (var i = 1; i <= 31; i++) {
+              var select = document.getElementById("day");
+              var option = document.createElement("OPTION");
+              select.options.add(option);
+              option.text = i;
+              option.value = i;
+            }
+          </script>
+        </select>
+      </div>
+      <div>
+        <label for="month">Month:</label>
+        <select id="month">
+          <script type="text/javascript">
+            for (var i = 1; i <= 12; i++) {
+              var select = document.getElementById("month");
+              var option = document.createElement("OPTION");
+              select.options.add(option);
+              option.text = i;
+              option.value = i;
+            }
+          </script>
+        </select>
+      </div>
+      <div>
+        <label for="year">Year:</label>
+        <select id="year">
+          <script type="text/javascript">
+            for (var i = 2020; i <= 2025; i++) {
+              var select = document.getElementById("year");
+              var option = document.createElement("OPTION");
+              select.options.add(option);
+              option.text = i;
+              option.value = i;
+            }
+          </script>
+        </select>
+      </div>
+      <div>
+        <label for="startHour">Start Hour:</label>
+        <select id="startHour">
+          <script type="text/javascript">
+            for (var i = 0; i <= 24; i++) {
+              var select = document.getElementById("startHour");
+              var option = document.createElement("OPTION");
+              select.options.add(option);
+              option.text = i;
+              option.value = i;
+            }
+          </script>
+        </select>
+      </div>
+      <div>
+        <label for="endHour">End Hour:</label>
+        <select id="endHour">
+          <script type="text/javascript">
+            for (var i = 0; i <= 24; i++) {
+              var select = document.getElementById("endHour");
+              var option = document.createElement("OPTION");
+              select.options.add(option);
+              option.text = i;
+              option.value = i;
+            }
+          </script>
+        </select>
+      </div>
+      <div>
+        <label for="eventTitle">Event Title:</label>
+        <select id="eventTitle">
+          <option value="downtime">downtime</option>
+          <option value="eating">eating</option>
+          <option value="exercise">exercise</option>
+          <option value="family-time">family-time</option>
+          <option value="homework">homework</option>
+          <option value="productive-work">productive-work</option>
+          <option value="reading">reading</option>
+          <option value="sleep">sleep</option>
+          <option value="social-time">social-time</option>
+          <option value="work">work</option>
+        </select>
+      </div>
+      <div>
+        <input class="btn" type="submit" value="Submit" style ="position: relative; top: 10px;"
+            onclick="submitInput(); alert(); loadEventList();">
+      </div>
+      <div class="alert">
+        <span class="fas fa-check"></span>
+        <span class="msg">Event added!</span>
+      </div>
+      <br>
+    </fieldset>
+
+    <div class="cal_events" id="events">
+      <br>
+      Event List
+      <br>
+    </div>
+    <div class="cal_events" id="eventlist"></div>
+
+    <br>
+    <div class="calendar" id="calendar">
+      <span id="curMonth"></span>
+      <select id="cal_month" onchange="loadCalendarMonth(this.value)">
+        <option value=-1> Select Month</option>
+        <option value=1>Jan</option>
+        <option value=2>Feb</option>
+        <option value=3>Mar</option>
+        <option value=4>Apr</option>
+        <option value=5>May</option>
+        <option value=6>Jun</option>
+        <option value=7>Jul</option>
+        <option value=8>Aug</option>
+        <option value=9>Sep</option>
+        <option value=10>Oct</option>
+        <option value=11>Nov</option>
+        <option value=12>Dec</option>
+      </select>
+
+      <select id="cal_year" onchange="loadCalendarYear(this.value)" class="curYear">
+        <option value=-1> Select Year</option>
+        <option value=2020>2020</option>
+        <option value=2021>2021</option>
+        <option value=2022>2022</option>
+        <option value=2023>2023</option>
+        <option value=2024>2024</option>
+        <option value=2025>2025</option>
+        <option value=2026>2026</option>
+        <option value=2027>2027</option>
+        <option value=2028>2028</option>
+        <option value=2029>2029</option>
+      </select>
+      <div class="curYear"> &nbsp;</div>
+      <span id="curYear" class="curYear"></span>
+
+      <div class="clear"></div>
+
+      <div class="calendar-dates">
+        <div class="days">
+          <div class="day label">SUN</div>
+          <div class="day label">MON</div>
+          <div class="day label">TUE</div>
+          <div class="day label">WED</div>
+          <div class="day label">THU</div>
+          <div class="day label">FRI</div>
+          <div class="day label">SAT</div>
+
+          <div class="clear"></div>
+
+          <br>
+          <div id="calendarDays" class="days">
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+<div id="Visualize" class="tabcontent">
+  <h3>Visualize</h3>
+    <div div class="btn-group" style="width:100%">
+      <input id="polarbtn" class="btn" type="button" value="Visualize Polar Area Chart" style="width:33%; display: inline-block;"
+          onclick="displayPolarChart();">
+      <input id="barbtn" class="btn" type="button" value="Visualize Bar Chart" style="width:33%; display: inline-block;"
+          onclick="displayBarChart();">
+      <input id="piebtn" class="btn" type="button" value="Visualize Pie Chart" style="width:33%; display: inline-block;"
+          onclick="displayPieChart();">
+    </div>
+    <canvas id="Chart" height="120"></canvas>
+</div>
+  <div1 id="Insights" class="tabcontent">
+    <h3>Insights</h3>
+    <input id="insightBtn" class="btn" type="button" value="Generate insights" onclick="insightClient()">
+    <div class="Diet Insights" id="Diet Insights"></div>
+    <div class="Diet Time" id="Dtime"></div>
+    <div class="Diet insight" id="Dinsight"></div>
+    <div class="Work Insights" id="Work Insights"></div>
+    <div class="Work Time" id="Wtime"></div>
+    <div class="work insight" id="Winsight"></div>
+    <div class="Pwork Time" id="Ptime"></div>
+    <div class="Pwork insight" id="Pinsight"></div>
+    <div class="Sleep Insights" id="Sleep Insights"></div>
+    <div class="Sleep Time" id="Stime"></div>
+    <div class="Sleep insight" id="Sinsight"></div>
+    <div class="Relax Insights" id="Relax Insights"></div>
+    <div class="Relax Time" id="Rtime"></div>
+    <div class="Relax insight" id="Rinsight"></div>
+    <div class="Exercise Insights" id="Exercise Insights"></div>
+    <div class="Exercise Time" id="Etime"></div>
+    <div class="Exercise insight" id="Einsight"></div>
+  </div1>
+
+  <div id="Settings" class="tabcontent">
+    <h3>Settings</h3>
+    <input id="changeName" type="text" placeholder="Name">
+    <br>
+    <br>
+    <input type="radio" id="defaultColors " name="colors" value="Default">
+    <label for="defaultColors">Default Colors</label><br><br>
+    <input type="radio" id="darkColors " name="colors" value="Dark">
+    <label for="darkColors">Dark Colors</label><br><br>
+
+  <input id="savebtn" class="btn" type= "button"value="SAVE SETTINGS" onclick="saveSettings(); alert()">
+  <div class="alert" id ="alertSave">
+    <span class="fas fa-check"></span>
+    <span class="msg">Settings saved!</span>
+  </div>
+  <input id="resetbtn" class="btn" type= "button"value="RESET" onclick="resetLSAndContainer()">
+
+  </div>
+
+  <div id="Tests" class="tabcontent">
+    <h3>Test Page</h3>
+    <p>Composite test</p>
+    <input id="resetbtn" class="btn" type="button" value="Run Test" onclick="compositeUnitTest()">
+    <p>Strategy test</p>
+    <input id="resetbtn" class="btn" type="button" value="Run Test" onclick="strategyUnitTest()">
+    <p>Decorator test</p>
+    <input id="resetbtn" class="btn" type="button" value="Run Test" onclick="decoratorUnitTest()">
+  </div>
+
+  <div id="Activate" class="tabcontent">
+    <h3>Activate Home</h3>
+    <div class="welcomeText">
+      <h2 id="nameText">Welcome, <ins id="homeName"></ins> <br> </h2>
+      <p id="percentText">You have been <ins id="percentProductive"></ins>% productive with your time</p>
+      <script type="text/javascript">document.querySelector('#homeName').innerHTML = localStorage.getItem("name")
+        document.querySelector('#percentProductive').innerHTML = percentProductive()
+      </script>
+    </div>
+
+  </div>
+
+  <!-- below script is used to make home page the default that pops up-->
+  <script type="text/javascript">
+    document.getElementsByClassName('tablinks')[0].click()
+  </script>
+</body>
+
+</html>

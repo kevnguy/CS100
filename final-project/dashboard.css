@@ -1,0 +1,267 @@
+body { 
+  font-family: "Lato", sans-serif;
+  overflow-x: hidden;
+}
+
+html {
+  width: 100vw;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #455a64;
+  box-shadow: inset 0 0 6px #455a64;
+  border-radius: 10px;
+}
+
+h1{
+    background-color: #455a64;    /* Light gray */
+    color: #40c4ff;
+    padding: 25px;
+    margin: 0px;
+    border: none;
+}
+
+
+/* Style the tab */
+.tab {
+  overflow: auto;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: crosshair;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover, h1:hover {
+  background-color: #ddd;/* TODO: need a better color and figure out how to only highlight the text part, not the entire box;*/
+}
+
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  overflow: auto;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.welcomeText {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  border:none;
+  text-align: center;
+
+}
+
+#nameText {
+  font-size: 300%;
+  text-align: center;
+}
+
+
+.btn {
+  text-align: center;
+  display: block;
+  width: 10%;
+  padding: 10px 10px;
+  border: 0;
+  background: #333;
+  color: #fff;
+  border-radius: 5px;
+  margin: 5px 0;
+  width: fit-content;
+  position: relative;
+}
+
+.btn:hover {
+  background: #444;
+}
+
+#resetbtn{
+  background: #a64452;
+}
+#resetbtn:hover{
+  background: #853642;
+}
+
+#insightBtn {
+  width: fit-content;
+}
+
+select:hover { 
+  background: #fff;
+
+ }
+ .cal_fs{
+  float:left;
+  width: 51%;
+ }
+ .cal_events{
+   float:left;
+   width: 51%;
+ }
+ .calendar {
+  right: 40px;
+  top: 238px;
+  position: absolute;
+  width: 40%;
+ }
+ .calendar .calendar-btn
+ {
+     float: left;
+     background-color: #24aeff;
+     color: white;
+     text-align: center;
+     font-size: 12pt;
+     padding-top: 5px;
+     padding-bottom: 5px;
+     position: relative;
+     width: 10%;
+     cursor: crosshair;
+     transition: .5s background-color;
+     border-radius: 5px;
+ }
+ 
+ .calendar .calendar-btn:hover{
+     background:#c0c0c0;
+ }
+ 
+ .calendar .curYear
+ {
+     float:right;
+ }
+ 
+ .calendar .calendar-dates .days .day
+ {
+     float:left;
+     width: 9.5%;
+     margin: 1%;
+     padding: 1%;
+     font-size:13pt;
+     text-align:center;
+     border-radius: 5px;
+     border: solid 1px #ddd;
+     cursor: crosshair;
+ }
+ .calendar .calendar-dates .days .day:hover{
+  background:#c0c0c0;
+}
+ 
+ .calendar .calendar-dates .days .day.blank
+ {
+     background-color: white;
+     border:none;
+ }
+ 
+ .calendar .calendar-dates .days .day.selected
+ {
+     background-color: #1caff6;
+     color: white;
+     cursor:pointer;
+     opacity: .5;
+     transition: .5s opacity;
+ }
+ 
+ .calendar .calendar-dates .days .day.selected:hover
+ {
+     opacity: 1;
+ }
+ 
+ .calendar .calendar-dates .days .day.label
+ {
+     height: 1px;
+     background-color: white;
+     color: black;
+     border:none;
+     font-weight:bold;
+ }
+ 
+ .clear{
+     clear:both;
+ }
+ 
+ @media only screen and (max-width: 480px) {
+     .calendar{
+         width: 100%;
+         margin: 0px;
+         margin: 0px;
+         box-sizing: border-box;
+         position: relative;
+         left: 0px;
+     }
+ }
+  
+ .alert{
+  background: #d0ff9b;
+  padding: 20px 40px;
+  min-width: 100px;
+  position: absolute;
+  right: 0;
+  top: 15px;
+  border-radius: 4px;
+  border-left: 8px solid #008d18f6;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+.alert.showAlert{
+  opacity: 1;
+  pointer-events: auto;
+}
+.alert.show{
+  animation: show_slide 2s ease forwards;
+}
+@keyframes show_slide {
+  0%{
+    transform: translateX(100%);
+  }
+  50%{
+    transform: translateX(0%);
+  }
+}
+.alert.hide{
+  opacity: 0;
+  -webkit-transition: opacity 1.5s linear;
+  -moz-transition: opacity 1.5s linear;
+  -o-transition: opacity 1.5s linear;
+  transition: opacity 1.5s linear;
+}
+.alert .fa-check{
+  position: absolute;
+  left: 25px;
+  top: 50%;
+  transform: translateY(-55%);
+  color: #008d18f6;
+  font-size: 20px;
+}
+.alert .msg{
+  padding: 0 20px;
+  font-size: 18px;
+  color: #008d18f6;
+}
